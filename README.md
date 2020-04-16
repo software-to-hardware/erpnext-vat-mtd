@@ -85,7 +85,20 @@ The fields in the "VAT Details" section at the bottom define which boxes on
 the VAT return will be affected.
 
 You are free to define the categories as you see fit or use existing categories
-if you have them
+if you have them.
+
+By way of example, we configured ours like this:
+
+| Item Template Name    | Ledger Tax Rate | Include in VAT return? | VAT Rules | Reverse? | Transaction Type | VAT Rate |
+|-----------------------|-----------------|------------------------|-----------|----------|------------------|----------|
+| Standard Rated        | 20%             | Yes                    | UK        | No       | Not applicable   | 20%      |
+| Lower Rate            | 5%              | Yes                    | UK        | No       | Not applicable   | 5%       |
+| Exempt                | 0%              | Yes                    | UK        | No       | Not applicable   | 0%       |
+| Zero Rated            | 0%              | Yes                    | UK        | No       | Not applicable   | 0%       |
+| VAT does not apply    | 0%              | No                     | UK        | No       | Not applicable   | 0%       |
+| EU Goods              | 0%              | Yes                    | EU        | No       | Goods            | 20%      |
+| EU Services           | 0%              | Yes                    | EU        | Yes      | Services         | 20%      |
+| EU Goods (Zero rated) | 0%              | Yes                    | EU        | No       | Goods            | 0%       |
 
 ### Applying the Tax Item Templates
 
