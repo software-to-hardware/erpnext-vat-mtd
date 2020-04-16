@@ -1,0 +1,115 @@
+{
+ "actions": [],
+ "autoname": "field:company",
+ "creation": "2020-04-11 16:11:42.820050",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "authorisations_requested_section",
+  "is_vat",
+  "request_authorisations",
+  "authorisation_status_section",
+  "authorisation_status",
+  "authorised_services",
+  "last_authorised_date",
+  "oauth_token",
+  "oauth_state",
+  "read_only_11"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "authorisations_requested_section",
+   "fieldtype": "Section Break",
+   "label": "Authorisations Requested"
+  },
+  {
+   "default": "1",
+   "description": "Selecting this will request authorisation from HMRC to retrieve information about, and to submit, your company VAT returns using this software.",
+   "fieldname": "is_vat",
+   "fieldtype": "Check",
+   "label": "VAT (MTD)"
+  },
+  {
+   "fieldname": "authorisation_status_section",
+   "fieldtype": "Section Break",
+   "label": "Authorisation Status"
+  },
+  {
+   "fieldname": "authorisation_status",
+   "fieldtype": "Data",
+   "label": "Authorisation status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "authorised_services",
+   "fieldtype": "Data",
+   "label": "Authorised services",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_authorised_date",
+   "fieldtype": "Datetime",
+   "label": "Date last authorised",
+   "read_only": 1
+  },
+  {
+   "fieldname": "oauth_state",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "OAUTH2 State",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:!doc.__islocal && doc.is_vat",
+   "description": "Pressing the above button will open a new window and connect to HMRC so you can authorise this request.",
+   "fieldname": "request_authorisations",
+   "fieldtype": "Button",
+   "label": "Request above authorisations"
+  },
+  {
+   "fieldname": "oauth_token",
+   "fieldtype": "Long Text",
+   "hidden": 1,
+   "label": "OAUTH2 Token",
+   "read_only": 1
+  },
+  {
+   "fieldname": "read_only_11",
+   "fieldtype": "Read Only"
+  }
+ ],
+ "links": [],
+ "modified": "2020-04-12 08:02:28.516141",
+ "modified_by": "Administrator",
+ "module": "UK VAT Return",
+ "name": "HMRC Authorisations",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

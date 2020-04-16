@@ -1,0 +1,92 @@
+{
+ "actions": [],
+ "creation": "2020-04-11 15:20:04.295883",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enable",
+  "oauth2_client_identifier_section",
+  "client_id",
+  "client_secret",
+  "advanced_section",
+  "auth_base",
+  "api_base",
+  "installation_guid"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enable",
+   "fieldtype": "Check",
+   "label": "Enable"
+  },
+  {
+   "depends_on": "enable",
+   "fieldname": "oauth2_client_identifier_section",
+   "fieldtype": "Section Break",
+   "label": "OAUTH2 Client Identifier"
+  },
+  {
+   "description": "This is the Client ID received from the HMRC developer API team. It is not your government gateway identifier.",
+   "fieldname": "client_id",
+   "fieldtype": "Data",
+   "label": "Client Id"
+  },
+  {
+   "fieldname": "client_secret",
+   "fieldtype": "Data",
+   "label": "Client Secret"
+  },
+  {
+   "default": "https://www.tax.service.gov.uk",
+   "fieldname": "auth_base",
+   "fieldtype": "Data",
+   "label": "Authorisation Base URL"
+  },
+  {
+   "default": "https://api.service.hmrc.gov.uk",
+   "fieldname": "api_base",
+   "fieldtype": "Data",
+   "label": "API Base URL"
+  },
+  {
+   "description": "This field is generated automatically upon save. Thereafter, it should not be changed, deleted or copied to a new installation.",
+   "fieldname": "installation_guid",
+   "fieldtype": "Data",
+   "label": "Installation GUID",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "enable",
+   "fieldname": "advanced_section",
+   "fieldtype": "Section Break",
+   "label": "Advanced"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2020-04-11 15:55:09.575127",
+ "modified_by": "Administrator",
+ "module": "UK VAT Return",
+ "name": "HMRC API Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

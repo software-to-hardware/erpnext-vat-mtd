@@ -1,0 +1,286 @@
+{
+ "actions": [],
+ "autoname": "VATRETURN.#####",
+ "creation": "2020-04-06 17:36:42.127631",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "top_info",
+  "company",
+  "fetch_returns_hmrc",
+  "period_start_date",
+  "period_end_date",
+  "vat_return_section",
+  "vat_output",
+  "vat_eu_acquisitions",
+  "vat_due_total",
+  "vat_input",
+  "vat_net",
+  "total_output_exvat",
+  "total_input_exvat",
+  "total_ec_goods_output",
+  "amended_from",
+  "total_ec_goods_input",
+  "section_submission",
+  "declaraion",
+  "is_finalised",
+  "submit_to_hmrc",
+  "submitted_date",
+  "section_hmrc",
+  "hmrc_processing_date",
+  "hmrc_form_bundle_number",
+  "hmrc_payment_indicator",
+  "hmrc_charge_reference_number",
+  "hmrc_vrn",
+  "section_additional_submission",
+  "hmrc_period_key",
+  "hmrc_correlation_id",
+  "hmrc_receipt_id",
+  "hmrc_receipt_timestamp"
+ ],
+ "fields": [
+  {
+   "fieldname": "top_info",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "period_start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Period Start Date",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "period_end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Period End Date",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "submitted_date",
+   "fieldtype": "Date",
+   "label": "Date return submitted",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_output",
+   "fieldtype": "Currency",
+   "label": "1. VAT due on sales",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_eu_acquisitions",
+   "fieldtype": "Currency",
+   "label": "2. VAT due on EU acquisitions",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_due_total",
+   "fieldtype": "Currency",
+   "label": "3. Total VAT due",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_input",
+   "fieldtype": "Currency",
+   "label": "4. VAT reclaimed on purchases",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_net",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "5. Net VAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_output_exvat",
+   "fieldtype": "Currency",
+   "label": "6. Total sales, ex. VAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_input_exvat",
+   "fieldtype": "Currency",
+   "label": "7. Total purchases, ex. VAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_ec_goods_output",
+   "fieldtype": "Currency",
+   "label": "8. Total EC supply of goods, ex VAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_ec_goods_input",
+   "fieldtype": "Currency",
+   "label": "9. Total EC acquisitions of goods, ex. VAT",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "UK VAT Return",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "vat_return_section",
+   "fieldtype": "Section Break",
+   "label": "VAT Return"
+  },
+  {
+   "depends_on": "eval:doc.__islocal",
+   "fieldname": "fetch_returns_hmrc",
+   "fieldtype": "Button",
+   "label": "Fetch open returns from HMRC"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "section_submission",
+   "fieldtype": "Section Break",
+   "label": "VAT Return Submission"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_finalised",
+   "fieldtype": "Check",
+   "label": "I agree with the above HMRC declaration"
+  },
+  {
+   "depends_on": "eval:(doc.is_finalised && doc.docstatus != 1)",
+   "fieldname": "submit_to_hmrc",
+   "fieldtype": "Button",
+   "label": "Submit VAT return to HMRC"
+  },
+  {
+   "depends_on": "hmrc_processing_date",
+   "fieldname": "section_hmrc",
+   "fieldtype": "Section Break",
+   "label": "VAT Return HMRC details"
+  },
+  {
+   "fieldname": "hmrc_processing_date",
+   "fieldtype": "Data",
+   "label": "Processing Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_form_bundle_number",
+   "fieldtype": "Data",
+   "label": "Form Bundle Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_payment_indicator",
+   "fieldtype": "Data",
+   "label": "Payment Indicator",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_charge_reference_number",
+   "fieldtype": "Data",
+   "label": "Charge reference number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_vrn",
+   "fieldtype": "Data",
+   "label": "Company VRN",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_period_key",
+   "fieldtype": "Data",
+   "label": "Period Key",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_correlation_id",
+   "fieldtype": "Data",
+   "label": "Correlation Id",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_receipt_id",
+   "fieldtype": "Data",
+   "label": "Receipt Id",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmrc_receipt_timestamp",
+   "fieldtype": "Data",
+   "label": "Receipt Timestamp",
+   "read_only": 1
+  },
+  {
+   "fieldname": "declaraion",
+   "fieldtype": "HTML",
+   "label": "Submission declaration",
+   "options": "<!-- NOTICE: The wording in this section has been provided by HMRC. It should not be changed without reference to the latest documentation from HMRC. -->\n\n<table>\n<tbody><tr><td><b>Business Declaration</b><br>\nWhen you submit this VAT information you are making a legal declaration that the information is true and complete. A false declaration can result in prosecution.\n</td><td><b>Agent Declaration</b><br>\nI confirm that my client has received a copy of the information contained in this return and approved the information as being correct and complete to the best of their knowledge and belief.</td>\n</tr>\n</tbody></table>"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "hmrc_processing_date",
+   "fieldname": "section_additional_submission",
+   "fieldtype": "Section Break",
+   "label": "Advanced submission details"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2020-04-15 19:26:23.905038",
+ "modified_by": "Administrator",
+ "module": "UK VAT Return",
+ "name": "UK VAT Return",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
