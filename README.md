@@ -153,15 +153,21 @@ page, selecting "Enable" and entering the required values.
 
 ![HMRC API Setup](doc/img/HMRCAPISetup.png)
 
-If you wish to test the submission facility against HMRCs test servers, you can change
-the endpoints under the "Advanced" view at the bottom of the page.
+Save the document and press the "Test HMRC Connectivity" button to check the details have
+been entered correctly.
+
+#### Using HMRC's test servers
+
+By default, the submission facility targets HMRC's production servers, however,
+If you wish to test the submission facility against HMRCs test servers, you can
+change the endpoints under the "Advanced" view at the bottom of the page.
 
 ### Authorising your ERPNext to access your VAT data
 
 The next step is to obtain an authorisation from HMRC to allow ERPNext to submit VAT returns.
 This is acheived electronically, as follows.
 
-1) Go to the HMRC AUhtorisations List. (search for it.)
+1) Go to the HMRC Authorisations List. (search for it.)
 
 2) Create a new authorisation, select your company and save the document.
 
