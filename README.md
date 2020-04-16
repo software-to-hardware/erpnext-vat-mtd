@@ -74,12 +74,18 @@ Example Tax Item Templates are:
  * EU Goods (Zero rated)
 
 When you install UK VAT, the "Tax Item Template" is extended so it can hold additional
-information describing the rules for your VAT return. This is shown here:
+information describing the rules for your VAT return. An example of this is shown here:
 
 ![Tax Item Template Example](doc/img/TiTExample.png)
 
-You are free to define the categories as you see fit. It is the rules you choose that define
-how your VAT return is constructed.
+The "Tax Rates" section at the top defines which ledger accounts this
+transaction should affect.
+
+The fields in the "VAT Details" section at the bottom define which boxes on
+the VAT return will be affected.
+
+You are free to define the categories as you see fit or use existing categories
+if you have them
 
 ### Applying the Tax Item Templates
 
