@@ -197,8 +197,13 @@ need to repeat this step (by pressing the Request above authorisations button) a
 
 ### Submitting your VAT returns
 
-Your VAT return can now be submitted using the button at the bottom of the VAT return page.
+At the bottom of the VAT return page is a submission section for submitting the return
+to HMRC.
 
+After agreeing to the declaraion, a submit button appears. Pressing it will cause ERPNext
+to ask HMRC for a list of outstanding returns. It will then attempt to match the dates of
+your VAT return to one of these outstanding obligations. If there is a match, it will then
+submit your return.
 
 ## License
 
