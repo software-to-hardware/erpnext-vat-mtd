@@ -6,7 +6,7 @@ Just so you know:
 
  * This is a minimal working installation.
 
- * We don't cover firewalls and making the box secure - that's up to you!
+ * We don't cover making the box secure - that's up to you!
 
 ## Install CentOS8.
 
@@ -34,29 +34,31 @@ Just so you know:
   sudo npm install -g yarn
 ```
 
-2) Create a user for ERPNext to run as, allowing it sudo access too :
+2) Create a user for ERPNext to run as, allowing it sudo access too:
 
 ```sh
   sudo useradd -m erp -G wheel
 ```
 
-3) Configure sudo so it doesn't need a password:
+3) (Optional) Configure sudo so it doesn't need a password:
 
+This step is optional but it might save you quite a bit of typing.
 You might want to cut'n'paste this one!
 
 ```sh
   sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+NOPASSWD:\s\+ALL\)/\1/' /etc/sudoers
 ```
 
-4) Open the firewall
+4) Open the firewall:
 
 ```sh
   sudo firewall-cmd --zone=public --add-port=80/tcp
+  sudo firewall-cmd --zone=public --add-port=443/tcp
   sudo firewall-cmd --zone=public --add-port=8000/tcp
   sudo firewall-cmd --runtime-to-permanent
 ```
 
-5) Set some kernel parameters
+5) Set some kernel parameters:
 
 ```sh
   echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
@@ -64,15 +66,17 @@ You might want to cut'n'paste this one!
   sudo chmod 755 /etc/rc.d/rc.local 
 ```
 
-6) Reboot
+6) Reboot:
+
+This will allow the updates to settle and the kernel parameters to get set.
 
 ```sh
-  reboot
+  sudo reboot
 ```
 
 ## Prepare MariaDB (mysql) for ERPNext
 
-1) Edit the mariadb configuration to set the correct character set:
+1) Edit the MariaDB configuration to set the correct character set:
 
 ```sh
   cat <<EOF >/etc/my.cnf.d/erpnext.cnf
@@ -89,14 +93,14 @@ default-character-set = utf8mb4
 EOF
 ```
 
-2) Enable and start the mariadb service
+2) Enable and start the MariaDB service:
 
 ```sh
   systemctl enable mariadb
   systemctl start mariadb
 ```
 
-3) Secure the service
+3) Secure the service:
 
 Start the secure script:
 
@@ -108,7 +112,7 @@ This is an interactive script that will ask you questions.
 
 Options are:
   * Current root password is none - just press enter.
-  * Set the root password - remember it!
+  * Enter a new password for the root password - remember it!
   * Remove anonymous users - Y
   * Disallow remote root - Y
   * Remove test database - Y
@@ -227,18 +231,15 @@ Ensure the test server from above is not running.
   sudo ln -s `pwd`/config/nginx.conf /etc/nginx/conf.d/frappe-bench.conf
 ```
 
-4) Enable services to start at boot and start them now
+4) Enable services to start at boot:
 ```sh
   sudo systemctl enable supervisord
   sudo systemctl enable nginx
-  sudo systemctl start supervisord
-  sudo systemctl start nginx
 ```
 
-5) Reboot
+5) Reboot:
 ```sh
-  reboot
+  sudo reboot
 ```
 
-After this your server should be accessible on port 80. This depends on using the
-correct domain name.
+After this your server should be accessible on port 80. You'll need to use the domain name you specified above when creating the site, otherwise you'll see the default nginx page.
