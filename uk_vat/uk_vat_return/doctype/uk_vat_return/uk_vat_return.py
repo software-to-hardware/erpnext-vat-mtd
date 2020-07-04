@@ -5,22 +5,22 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
-from frappe.utils import get_url, nowdate, date_diff
+from frappe.utils import get_url, nowdate, date_diff, flt
 import json
 import uk_vat.uk_vat_return.hmrc_api.vat as vat_api
 import datetime
 
 vat_return_schema = {
-									# Box Number, Source of value, Description
-	"vatDueSales":					[1, "vat", "VAT due on sales"],
-	"vatDueAcquisitions":			[2, "vat", "VAT due on EU acquisitions"],
-	"totalVatDue":					[3, None, "Total VAT due"],
-	"vatReclaimedCurrPeriod":		[4, "vat", "VAT reclaimed on purchase"],
-	"netVatDue": 					[5, None, "Net VAT"],
-	"totalValueSalesExVAT": 		[6, "base_amount", "Total sales, ex. VAT"],
-	"totalValuePurchasesExVAT": 	[7, "base_amount", "Total purchases, ex. VAT"],
-	"totalValueGoodsSuppliedExVAT": [8, "base_amount", "Total EC supply of goods, ex VAT"],
-	"totalAcquisitionsExVAT": 		[9, "base_amount", "Total EC acquisitions of goods, ex. VAT"]
+									# Box Number, Source of value, Description, Precision
+	"vatDueSales":					[1, "vat", "VAT due on sales", 2],
+	"vatDueAcquisitions":			[2, "vat", "VAT due on EU acquisitions", 2],
+	"totalVatDue":					[3, None, "Total VAT due", 2],
+	"vatReclaimedCurrPeriod":		[4, "vat", "VAT reclaimed on purchase", 2],
+	"netVatDue": 					[5, None, "Net VAT", 2],
+	"totalValueSalesExVAT": 		[6, "base_amount", "Total sales, ex. VAT", 0],
+	"totalValuePurchasesExVAT": 	[7, "base_amount", "Total purchases, ex. VAT", 0],
+	"totalValueGoodsSuppliedExVAT": [8, "base_amount", "Total EC supply of goods, ex VAT", 0],
+	"totalAcquisitionsExVAT": 		[9, "base_amount", "Total EC acquisitions of goods, ex. VAT", 0]
 }
 
 class UKVATReturn(Document):
@@ -231,6 +231,10 @@ def get_vat_return(company, period_start_date, period_end_date, drilldown=None):
 	vat_return["netVatDue"] = vat_return["totalVatDue"] - \
 		vat_return["vatReclaimedCurrPeriod"]
 
+	# All figures need to be of required precision
+	for f in vat_return_schema.keys():
+		vat_return[f] = flt(vat_return[f], vat_return_schema[f][3])
+
 	return vat_return
 
 @frappe.whitelist()
@@ -262,10 +266,10 @@ def submit_vat_return(name, is_finalised):
 		"totalVatDue": doc.vat_due_total,
 		"vatReclaimedCurrPeriod": doc.vat_input,
 		"netVatDue": doc.vat_net,
-		"totalValueSalesExVAT": doc.total_output_exvat,
-		"totalValuePurchasesExVAT": doc.total_input_exvat,
-		"totalValueGoodsSuppliedExVAT": doc.total_ec_goods_output,
-		"totalAcquisitionsExVAT": doc.total_ec_goods_input,
+		"totalValueSalesExVAT": int(doc.total_output_exvat),
+		"totalValuePurchasesExVAT": int(doc.total_input_exvat),
+		"totalValueGoodsSuppliedExVAT": int(doc.total_ec_goods_output),
+		"totalAcquisitionsExVAT": int(doc.total_ec_goods_input),
 		"finalised": True if is_finalised else False,
 		"periodKey": selected_obligation["periodKey"]
 	}
