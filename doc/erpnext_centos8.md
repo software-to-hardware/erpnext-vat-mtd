@@ -8,6 +8,10 @@ Just so you know:
 
  * We don't cover making the box secure - that's up to you!
 
+## Host / Virtual Machine (VM) requirements
+
+We recommend a host or VM with at least two cores and a minimum<sup>1</sup> of 4 GB of memory.
+
 ## Install CentOS8.
 
 1) Install CentOS 8. We chose the "minimal" install for this guide.
@@ -76,7 +80,13 @@ This will allow the updates to settle and the kernel parameters to get set.
 
 ## Prepare MariaDB (mysql) for ERPNext
 
-1) Edit the MariaDB configuration to set the correct character set:
+1) Switch to root user
+
+```sh
+  sudo -i
+```
+
+2) Edit the MariaDB configuration to set the correct character set:
 
 ```sh
   cat <<EOF >/etc/my.cnf.d/erpnext.cnf
@@ -93,14 +103,14 @@ default-character-set = utf8mb4
 EOF
 ```
 
-2) Enable and start the MariaDB service:
+3) Enable and start the MariaDB service:
 
 ```sh
   systemctl enable mariadb
   systemctl start mariadb
 ```
 
-3) Secure the service:
+4) Secure the service:
 
 Start the secure script:
 
@@ -139,8 +149,8 @@ and downloads a bunch of stuff and then builds it.
   bench init frappe-bench --frappe-branch version-12
 ```
 
-For the second command, a red error message appears early on about an "editable
-requirement." Ignore it.
+For the second command, a message about experiencing errors after October 2020 appears.
+You can ignore it. Hopefully the core ERPNext developers will fix that in future.
 
 When it's done you should get the message in green text:
 
@@ -210,9 +220,12 @@ Ensure the test server from above is not running.
 1) Create the production configuration files for supervisor and nginx:
 
 ```sh
-  bench setup supervisor
+  bench setup supervisor --yes
   bench setup nginx
 ```
+
+Note: If you get a message about supervisor.service not being found, it's ok to
+ignore. This is taken care of later.
 
 2) Set permissions including relaxing SELinux a bit
 
@@ -242,4 +255,14 @@ Ensure the test server from above is not running.
   sudo reboot
 ```
 
-After this your server should be accessible on port 80. You'll need to use the domain name you specified above when creating the site, otherwise you'll see the default nginx page.
+After this your server should be accessible at:
+
+	http://YOUR-DOMAIN/
+
+You'll need to use the domain name you specified above when creating the site, and not just
+the server's IP address, otherwise you'll see the default nginx page.
+
+# Footnotes
+
+1. The memory is required during the build of the web assets. Given this build happens
+every time you update, we recommend always having at list this much memory available.
