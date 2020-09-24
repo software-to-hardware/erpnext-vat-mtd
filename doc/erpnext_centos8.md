@@ -265,4 +265,4 @@ the server's IP address, otherwise you'll see the default nginx page.
 # Footnotes
 
 1. The memory is required during the build of the web assets. Given this build happens
-every time you update, we recommend always having at list this much memory available.
+every time you update, we recommend always having at least this much memory available.
