@@ -1,5 +1,7 @@
 # Install ERPNext on CentOS 8
 
+> :warning: **CentOS 8 is no longer a good choice for a production server [because support will end in 2021](https://blog.centos.org/2020/12/future-is-centos-stream/)**: You might like to consider alternatives.
+
 Some quick notes on installing ERPNext on CentOS 8.
 
 Just so you know:
