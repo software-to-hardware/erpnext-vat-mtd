@@ -9,6 +9,8 @@
   "oauth2_client_identifier_section",
   "client_id",
   "client_secret",
+  "fraud_prevention_section_header",
+  "gov_ip_headers",
   "advanced_section",
   "auth_base",
   "api_base",
@@ -65,11 +67,24 @@
    "fieldname": "advanced_section",
    "fieldtype": "Section Break",
    "label": "Advanced"
+  },
+  {
+   "default": "0",
+   "description": "For proper operation, you need to enable this and then provide the following HTTP headers to this application: Gov-Client-Public-IP, Gov-Client-Public-IP-Timestamp, Gov-Client-Public-Port, Gov-Vendor-Public-IP, Gov-Vendor-Forwarded. The spec for these headers is here: https://developer.service.hmrc.gov.uk/guides/fraud-prevention/connection-method/web-app-via-server/\n\nIf this is disabled, this app won't submit these headers to the HMRC API.",
+   "fieldname": "gov_ip_headers",
+   "fieldtype": "Check",
+   "label": "GOV IP Headers"
+  },
+  {
+   "fieldname": "fraud_prevention_section_header",
+   "fieldtype": "Section Break",
+   "label": "HMRC Fraud Prevention Headers"
   }
  ],
+ "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2020-04-11 15:55:09.575127",
+ "modified": "2021-04-14 18:37:58.394446",
  "modified_by": "Administrator",
  "module": "UK VAT Return",
  "name": "HMRC API Settings",

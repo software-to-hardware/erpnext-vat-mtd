@@ -14,7 +14,7 @@ class HMRCAuthorisations(Document):
 	pass
 
 def get_redirect_uri():
-	return get_request_site_address(True) + "?cmd=erpnext.regional.doctype.hmrc_authorisations.hmrc_authorisations.hmrc_callback"
+	return get_request_site_address(True) + "?cmd=uk_vat.uk_vat_return.doctype.hmrc_authorisations.hmrc_authorisations.hmrc_callback"
 
 @frappe.whitelist()
 def authorize_access(name):
@@ -75,11 +75,11 @@ def hmrc_callback(code=None, state=None,
 			include_client_id=True)
 
 	frappe.db.set_value("HMRC Authorisations", name, "oauth_token", json.dumps(token))
-	frappe.db.set_value("HMRC Authorisations", name, "authorisation_status", 
+	frappe.db.set_value("HMRC Authorisations", name, "authorisation_status",
 					        "Authorised")
-	frappe.db.set_value("HMRC Authorisations", name, "authorised_services", 
+	frappe.db.set_value("HMRC Authorisations", name, "authorised_services",
 					        " ".join(token["scope"]))
-	frappe.db.set_value("HMRC Authorisations", name, "last_authorised_date", 
+	frappe.db.set_value("HMRC Authorisations", name, "last_authorised_date",
 					    datetime.datetime.now())
 	frappe.db.commit()
 
@@ -91,7 +91,7 @@ def get_session(company):
 
 	name, token_string = frappe.db.sql("""
 				select name, oauth_token from `tabHMRC Authorisations` a
-				where 
+				where
 					a.company = %s and
 					a.authorisation_status = "Authorised"
 				""", company)[0]
@@ -116,3 +116,4 @@ def get_session(company):
 						auto_refresh_kwargs=extra,
 						auto_refresh_url=api_base+'/oauth/token',
 						token_updater=token_updater)
+
