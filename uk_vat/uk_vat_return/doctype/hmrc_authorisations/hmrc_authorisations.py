@@ -14,7 +14,7 @@ class HMRCAuthorisations(Document):
 	pass
 
 def get_redirect_uri():
-	return get_request_site_address(True) + "?cmd=uk_vat.uk_vat_return.doctype.hmrc_authorisations.hmrc_authorisations.hmrc_callback"
+	return get_request_site_address(True) + "?cmd=eu_vat.uk_vat_return.doctype.hmrc_authorisations.hmrc_authorisations.hmrc_callback"
 
 @frappe.whitelist()
 def authorize_access(name):
