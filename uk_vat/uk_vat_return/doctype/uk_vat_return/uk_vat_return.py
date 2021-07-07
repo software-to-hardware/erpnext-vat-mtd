@@ -65,7 +65,7 @@ def get_transactions(company, invoice_type, period_start_date, period_end_date):
 		select invoice.name as name, ii.item_name, ii.item_code, ii.idx,
 			ii.base_amount, ii.item_tax_template,
 		tt.vat_rate, tt.vat_is_reverse_charge, tt.vat_transaction_type,
-		tt.vat_rules from 
+		tt.vat_rules, tt.vat_country from 
 			`tab{invoice_type} Invoice` invoice
 		inner join `tab{invoice_type} Invoice Item` ii on
 			ii.parent = invoice.name
@@ -75,7 +75,8 @@ def get_transactions(company, invoice_type, period_start_date, period_end_date):
 			invoice.docstatus = 1 and
 			invoice.posting_date >= %s and
 			invoice.posting_date <= %s and
-			tt.vat_is_in_vat_return = 1
+			tt.vat_is_in_vat_return = 1 and
+			tt.vat_country = 'UK'
 		""".format(invoice_type=invoice_type), 
 			(period_start_date, period_end_date), as_dict=True)
 
@@ -139,7 +140,7 @@ def get_vat_return(company, period_start_date, period_end_date, drilldown=None):
 					repr(sale["vat_transaction_type"]))
 
 		# UK trade
-		elif sale["vat_rules"]=="UK":
+		elif sale["vat_rules"]=="Domestic":
 
 			# Boxes 1 and 6
 			increment(sale, ("vatDueSales","totalValueSalesExVAT"))
@@ -188,7 +189,7 @@ def get_vat_return(company, period_start_date, period_end_date, drilldown=None):
 					repr(purchase["vat_transaction_type"]))
 
 		# UK trade
-		elif purchase["vat_rules"]=="UK":
+		elif purchase["vat_rules"]=="Domestic":
 
 			if purchase["vat_is_reverse_charge"]:
 
