@@ -227,9 +227,9 @@ def get_vat_return(company, period_start_date, period_end_date, drilldown=None):
 	vat_return["totalVatDue"] += vat_return["vatDueSales"] + \
 		vat_return["vatDueAcquisitions"]
 
-	# Box 5 = Box 3 - Box 4
-	vat_return["netVatDue"] = vat_return["totalVatDue"] - \
-		vat_return["vatReclaimedCurrPeriod"]
+	# Box 5 = |Box 3 - Box 4|
+	vat_return["netVatDue"] = abs(vat_return["totalVatDue"] -
+		vat_return["vatReclaimedCurrPeriod"])
 
 	# All figures need to be of required precision
 	for f in vat_return_schema.keys():
